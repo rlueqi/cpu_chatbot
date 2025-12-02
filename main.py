@@ -61,18 +61,20 @@ if "messages" not in st.session_state:
         }
     ]
 
+avatars = {"user": "🤔", "assistant": "🌍"}
+
 for message in st.session_state.messages:
     if message["role"] == "system":
         continue
-    with st.chat_message(message["role"]):
+    with st.chat_message(message["role"], avatar=avatars.get(message["role"])):
         st.markdown(message["content"])
 
 if prompt := st.chat_input("언어와 관련된 질문을 해주세요."):
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
+    with st.chat_message("user", avatar=avatars["user"]):
         st.markdown(prompt)
 
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar=avatars["assistant"]):
         # 스트리밍 응답 받기
         stream = client.chat.completions.create(
             model=st.session_state["llm_model"],
