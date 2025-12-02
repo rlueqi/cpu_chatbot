@@ -27,6 +27,7 @@ prompt = """
 - 현재 쓰는 표현만 사용하기
 - 정보가 부족해서 못 알려주는 언어는 "자료 부족"으로 표시
 - 질문을 할 때 사용하는 언어로 대답하기
+- 한국어 발음과 국제음성기호를 같이 넣기
 """
 
 # Cerebras API를 사용하여 OpenAI API 클라이언트 초기화
@@ -66,7 +67,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-if prompt := st.chat_input("무엇이든 물어보세요."):
+if prompt := st.chat_input("언어와 관련된 질문을 해주세요."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
